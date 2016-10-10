@@ -2,4 +2,7 @@
     <string name="app_name">Feelinko</string>
     <string name="facebook_app_id">1155410031191355</string>
 
+    <string name="unexpected_error">An unexpected error occurred</string>
+    <string name="network_error">An network error occurred … please check your network connection !</string>
+
 </resources>

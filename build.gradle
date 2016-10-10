@@ -6,7 +6,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
-
+        // this is done to fix whitespace error see : https://code.google.com/p/android/issues/detail?id=214615
+        classpath 'com.google.guava:guava:19.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -20,4 +21,12 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    // App dependencies
+    butterknifeVersion = '8.4.0'
+    facebookSdkVersion = '4.16.0'
+    retrofitVersion = '2.1.0'
+    dagger2Version = '2.7'
 }
