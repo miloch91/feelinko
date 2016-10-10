@@ -9,6 +9,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
 import com.feelinko.feelinko.R;
 
 import butterknife.BindView;
@@ -16,7 +17,8 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.login_button) LoginButton mLoginButton;
+    @BindView(R.id.login_button)
+    LoginButton mLoginButton;
 
     private CallbackManager mCallbackManager;
 
