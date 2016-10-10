@@ -29,4 +29,6 @@ ext {
     facebookSdkVersion = '4.16.0'
     retrofitVersion = '2.1.0'
     dagger2Version = '2.7'
+    okhttp3LoggingInterceptorVersion = '3.4.1'
+    reactivexRxandroidVersion = '1.1.0'
 }

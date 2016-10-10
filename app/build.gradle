@@ -60,11 +60,10 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
 
-    compile "com.squareup.okhttp3:logging-interceptor:3.4.1"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okhttp3LoggingInterceptorVersion"
 
-    compile "io.reactivex:rxandroid:1.1.0"
+    compile "io.reactivex:rxandroid:$rootProject.ext.reactivexRxandroidVersion"
 
     compile "com.google.dagger:dagger:$rootProject.ext.dagger2Version"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.dagger2Version"
-/*    provided 'javax.annotation:jsr250-api:1.0'*/
 }
