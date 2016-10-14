@@ -17,7 +17,7 @@ import rx.functions.Func1;
 
 /**
  * class to simplify rx observable errors returned by retrofit
- * This is a wraper to the existing {@link RxJavaCallAdapterFactory}
+ * This is a wrapper to the existing {@link RxJavaCallAdapterFactory}
  * This will be used when we create the retrofit builder
  *
  * @version 1.0
@@ -39,6 +39,7 @@ public class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
      * This static method is called when we construct the retrofit builder.
      * Here we load all the inner functions of the RxJavaCallAdapterFactory.
      * We do not want to reimplement everything, we just want to add our logic for the error mechanism.
+     *
      * @return our instance of RxErrorHandlingCallAdapterFactory.
      */
     public static CallAdapter.Factory create() {
@@ -48,6 +49,7 @@ public class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
     /**
      * When the get method is called by the retrofit builder,
      * we load our CallAdapter which contains the RxErrorHandlingCallAdapterFactory's callAdapter.
+     *
      * @return our CallAdapter that contains the RxErrorHandlingCallAdapterFactory's callAdapter
      */
     @Override
@@ -62,6 +64,7 @@ public class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
         /**
          * Retrofit object
          */
+        @SuppressWarnings("unused")
         private final Retrofit retrofit;
         /**
          * wrapped CallAdapter
@@ -70,16 +73,18 @@ public class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
 
         /**
          * The constructor
+         *
          * @param retrofit the retrofit object
-         * @param wrapped the wrapped CallAdaptor
+         * @param wrapped  the wrapped CallAdaptor
          */
-        public RxCallAdapterWrapper(Retrofit retrofit, CallAdapter<?> wrapped) {
+        RxCallAdapterWrapper(Retrofit retrofit, CallAdapter<?> wrapped) {
             this.retrofit = retrofit;
             this.wrapped = wrapped;
         }
 
         /**
          * Here we use our wrapped CallAdaptor
+         *
          * @return the wrapped responseType method result
          */
         @Override
@@ -108,6 +113,7 @@ public class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
          * Through the onErrorResumeNext callback defined above we get the error encountered as a throwable.
          * we then convert it to a retrofit exception containing the valid information
          * and then the onErrorResumeNext will pass it on to our subscribers
+         *
          * @param throwable the error encountered
          * @return the retrofit exception created from the throwable
          * @see RetrofitException

@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.2.1'
         // this is done to fix whitespace error see : https://code.google.com/p/android/issues/detail?id=214615
         classpath 'com.google.guava:guava:19.0'
         // NOTE: Do not place your application dependencies here; they belong
@@ -25,6 +25,9 @@ task clean(type: Delete) {
 
 ext {
     // App dependencies
+    espressoVersion = '2.2.2'
+    supportLibraryVersion = '24.2.1'
+    junitVersion = '4.12'
     butterknifeVersion = '8.4.0'
     facebookSdkVersion = '4.16.0'
     retrofitVersion = '2.1.0'

@@ -1,5 +1,9 @@
 package com.feelinko.feelinko.data.networkUtils;
 
+import android.support.annotation.Nullable;
+
+import com.feelinko.feelinko.dagger2.module.RetrofitDependenciesModule;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -11,8 +15,8 @@ import okhttp3.Response;
  * It is Injected using Dagger 2 and has a singleton scope. This means that to set the token in the header's of our requests
  * we just need to get the singleton instance add the token and regenerate the Retrofit object.
  *
- * @see com.feelinko.feelinko.data.ApiCommunication#updateToken(String)
  * @version 1.0
+ * @see com.feelinko.feelinko.data.ApiCommunication#updateToken(String)
  */
 public class AuthHeaderRequestInterceptor implements Interceptor {
     /**
@@ -21,7 +25,17 @@ public class AuthHeaderRequestInterceptor implements Interceptor {
     private String mToken;
 
     /**
+     * The constructor to create the AuthHeaderRequestInterceptor with a token extracted from the shared preferences
+     *
+     * @param token the previous token if it exists
+     */
+    public AuthHeaderRequestInterceptor(@Nullable String token) {
+        mToken = token;
+    }
+
+    /**
      * This method set's the token
+     *
      * @param token the new token value
      */
     public void setToken(String token) {
@@ -29,11 +43,12 @@ public class AuthHeaderRequestInterceptor implements Interceptor {
     }
 
     /**
-     * This method defines the code for the interceptor that is run when the {@link com.feelinko.feelinko.dagger2.module.NetModule}
+     * This method defines the code for the interceptor that is run when the {@link RetrofitDependenciesModule}
      * provides the OkHttpClient to the retrofit instance being provided to the ApiComponent
-     * @see com.feelinko.feelinko.dagger2.module.NetModule#provideOkHttpClient(AuthHeaderRequestInterceptor)
-     * @see Interceptor
+     *
      * @throws IOException
+     * @see RetrofitDependenciesModule#provideOkHttpClient(AuthHeaderRequestInterceptor)
+     * @see Interceptor
      */
     @Override
     public Response intercept(Chain chain) throws IOException {

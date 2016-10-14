@@ -13,9 +13,10 @@ import retrofit2.Response;
  * This class can be instantiated without the android framework so we get the default string errors from a {@link StringResources}.
  * The StringResources object is injected depending on the build flavor.
  * In production mode the user will see the string errors from the resource files.
- * In testing mode we use the fakeStringRessource build that enables us to Inject default strings independent of the Android framework.
- * @see Injection
+ * In testing mode we use the fakeStringResource build that enables us to Inject default strings independent of the Android framework.
+ *
  * @version 1.0
+ * @see Injection
  */
 public class ApiError {
     /**
@@ -24,29 +25,30 @@ public class ApiError {
     private String error;
 
     /**
-     * Here we have a StringResources object that will be injected either from prod/java/com/feelinko.feelinko.Injection.java
-     * or fakeStringResources/java/com/feelinko.feelinko.Injection.java
+     * Here we have a StringResources object that will be injected either from prod/java/com.feelinko.feelinko.Injection.java
+     * or fakeStringResources/java/com.feelinko.feelinko.Injection.java
      */
     private StringResources mStringResources;
 
     /**
      * Default constructor to enable the Json converter to construct the object and Inject the StringResources
      */
-    public ApiError(){
+    public ApiError() {
         mStringResources = Injection.getStringResources();
     }
 
     /**
      * Get the error String
-     * @return the error encountered by the server (error might be null)
+     *
+     * @return the error encountered by the server
      */
-    public @Nullable
-    String getError() {
+    public String getError() {
         return error;
     }
 
     /**
-     * Set the error String. This will be used by the Json converter if the Json response contains the key 'error'
+     * Set the error String.
+     *
      * @param error the new error String
      */
     void setError(String error) {
