@@ -2,7 +2,18 @@
     <string name="app_name">Feelinko</string>
     <string name="facebook_app_id">1155410031191355</string>
 
+    <!--Global Errors-->
+
     <string name="unexpected_error">An unexpected error occurred</string>
     <string name="network_error">An network error occurred … please check your network connection !</string>
+
+    <!--!Global Errors-->
+
+    <!--Login-->
+
+    <string name="snackBar_dismiss_info">Dismiss</string>
+    <string name="facebook_login_canceled_error">Facebook login is required to use this app</string>
+
+    <!--!Login-->
 
 </resources>

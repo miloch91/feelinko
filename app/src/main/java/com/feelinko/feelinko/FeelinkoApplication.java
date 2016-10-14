@@ -6,6 +6,11 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.feelinko.feelinko.dagger2.component.ApiCommunicationComponent;
 import com.feelinko.feelinko.dagger2.component.DaggerApiCommunicationComponent;
+import com.feelinko.feelinko.dagger2.component.DaggerPresenterComponent;
+import com.feelinko.feelinko.dagger2.component.DaggerSharedPreferencesComponent;
+import com.feelinko.feelinko.dagger2.component.PresenterComponent;
+import com.feelinko.feelinko.dagger2.component.SharedPreferencesComponent;
+import com.feelinko.feelinko.dagger2.module.SharedPreferencesModule;
 
 /**
  * This is the application class. It is instantiated when the application is started
@@ -20,13 +25,17 @@ public class FeelinkoApplication extends Application {
     private static FeelinkoApplication mInstance;
 
     /**
-     * The api communication component to inject the apiCommunication object inside the different presenters
+     * The presenterComponent to inject all the presenters to the views.
+     * We store the presenterComponent in the application class because we need to inject singleton presenter's
+     * and to do so, we must save the component. By putting the component in the application class,
+     * we know that we will always be able to get a references to it
+     * and so we will always be able to inject our singleton presenters inside the views.
      */
-    private ApiCommunicationComponent mApiCommunicationComponent;
+    private PresenterComponent mPresenterComponent;
 
     /**
-     * This method is called when the application class is created.
-     * Here we initialise the facebook api and our ApiCommunicationComponent
+     * This method is called when the application singleton class is created.
+     * Here we initialise the facebook api and our PresenterComponent.
      */
     @Override
     public void onCreate() {
@@ -37,25 +46,35 @@ public class FeelinkoApplication extends Application {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
-        mApiCommunicationComponent = DaggerApiCommunicationComponent.builder().build();
+        SharedPreferencesComponent sharedPreferencesComponent = DaggerSharedPreferencesComponent.builder()
+                .sharedPreferencesModule(new SharedPreferencesModule(this))
+                .build();
+
+        ApiCommunicationComponent apiCommunicationComponent = DaggerApiCommunicationComponent.builder()
+                .sharedPreferencesComponent(sharedPreferencesComponent).build();
+
+        mPresenterComponent = DaggerPresenterComponent.builder()
+                .apiCommunicationComponent(apiCommunicationComponent)
+                .build();
     }
 
     /**
      * This method will enable us to get the singleton instance of our Application class
      * It is used for example in our Injection class in production mode to get the network and unexpected error strings
-     * @see Injection
+     *
      * @return the FeelinkoApplication instance
+     * @see Injection
      */
     public static FeelinkoApplication getInstance() {
         return mInstance;
     }
 
     /**
-     * This method is to get the ApiCommunicationComponent to inject the singleton instance of ApiCommunication in the presenters.
-     * We need to preserve it because the singleton scope is not preserved throughout different instances of components
-     * @return the ApiCommunicationComponent
+     * This method is used to get the presenterComponent.This is done to inject the singleton presenters in the views.
+     *
+     * @return the presenterComponent
      */
-    public ApiCommunicationComponent getApiCommunicationComponent() {
-        return mApiCommunicationComponent;
+    public PresenterComponent getPresenterComponent() {
+        return mPresenterComponent;
     }
 }
